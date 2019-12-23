@@ -1,4 +1,4 @@
-describe( "DateConverter", function () {
+describe( "Countdown", function () {
 
     const SECOND = 1_000,
           MINUTE = SECOND * 60,
@@ -10,7 +10,7 @@ describe( "DateConverter", function () {
         const when = new Date();
         when.setTime( when.getTime() + MINUTE );
 
-        const converter = new DateConverter( when );
+        const converter = new Countdown( when );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "0h 1m 0s" );
@@ -21,7 +21,7 @@ describe( "DateConverter", function () {
         const when = new Date();
         when.setTime( when.getTime() + HOUR );
 
-        const converter = new DateConverter( when );
+        const converter = new Countdown( when );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "1h 0m 0s" );
@@ -32,7 +32,7 @@ describe( "DateConverter", function () {
         const when = new Date();
         when.setTime( when.getTime() + DAY );
 
-        const converter = new DateConverter( when );
+        const converter = new Countdown( when );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "1d 0h 0m 0s" );
@@ -43,8 +43,8 @@ describe( "DateConverter", function () {
         const when = new Date();
         when.setTime( when.getTime() + WEEK );
 
-        const converter = new DateConverter( when );
-        converter.setType( DateConverter.WEEKS );
+        const converter = new Countdown( when );
+        converter.setType( Countdown.WEEKS );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "1w 0d 0h 0m 0s" );
@@ -59,8 +59,8 @@ describe( "DateConverter", function () {
         when.setTime( when.getTime() + MINUTE * 32 );
         when.setTime( when.getTime() + SECOND * 59 );
 
-        const converter = new DateConverter( when );
-        converter.setType( DateConverter.WEEKS );
+        const converter = new Countdown( when );
+        converter.setType( Countdown.WEEKS );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "1w 2d 7h 32m 59s" );
@@ -79,8 +79,8 @@ describe( "DateConverter", function () {
         when.setTime( when.getTime() + MINUTE * 32 );
         when.setTime( when.getTime() + SECOND * 59 );
 
-        const converter = new DateConverter( when );
-        converter.setType( DateConverter.DAYS );
+        const converter = new Countdown( when );
+        converter.setType( Countdown.DAYS );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "256d 7h 32m 59s" );
@@ -93,8 +93,8 @@ describe( "DateConverter", function () {
         when.setTime( when.getTime() + MINUTE * 32 );
         when.setTime( when.getTime() + SECOND * 59 );
 
-        const converter = new DateConverter( when );
-        converter.setType( DateConverter.HOURS );
+        const converter = new Countdown( when );
+        converter.setType( Countdown.HOURS );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "256h 32m 59s" );
@@ -106,8 +106,8 @@ describe( "DateConverter", function () {
         when.setTime( when.getTime() + MINUTE * 256 );
         when.setTime( when.getTime() + SECOND * 59 );
 
-        const converter = new DateConverter( when );
-        converter.setType( DateConverter.MINUTES );
+        const converter = new Countdown( when );
+        converter.setType( Countdown.MINUTES );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "256m 59s" );
@@ -118,11 +118,11 @@ describe( "DateConverter", function () {
         const when = new Date();
         when.setTime( when.getTime() + DAY * 10 );
 
-        const converter = new DateConverter( when, {
+        const converter = new Countdown( when, {
             daysAWeek: 5,
             omitZero : true
         } );
-        converter.setType( DateConverter.WEEKS );
+        converter.setType( Countdown.WEEKS );
         converter.parse();
 
         expect( converter.convert() ).toEqual( "2w" );

@@ -1,6 +1,6 @@
-class DateConverter {
+class Countdown {
 
-    constructor( until, config = {}, type = DateConverter.DAYS, defaultText = "" ) {
+    constructor( until, config = {}, type = Countdown.DAYS, defaultText = "" ) {
 
         this.parsed = [];
         this.config = {
@@ -70,10 +70,10 @@ class DateConverter {
 
         let seconds = Math.floor( Math.abs( this.milliseconds ) / 1000 );
 
-        if ( this.type > DateConverter.SECONDS )
+        if ( this.type > Countdown.SECONDS )
             seconds = seconds % 60;
 
-        if ( seconds !== 0 || !this.config.omitZero && this.type > DateConverter.SECONDS ) {
+        if ( seconds !== 0 || !this.config.omitZero && this.type > Countdown.SECONDS ) {
 
             this.seconds = seconds;
             this.parsed.push( this.getText( this.config.secondText, seconds ) );
@@ -82,15 +82,15 @@ class DateConverter {
 
     processMinutes() {
 
-        if ( this.type < DateConverter.MINUTES )
+        if ( this.type < Countdown.MINUTES )
             return;
 
         let minutes = Math.floor( Math.abs( this.milliseconds ) / 60000 );
 
-        if ( this.type > DateConverter.MINUTES )
+        if ( this.type > Countdown.MINUTES )
             minutes = minutes % 60;
 
-        if ( minutes !== 0 || !this.config.omitZero && this.type > DateConverter.MINUTES ) {
+        if ( minutes !== 0 || !this.config.omitZero && this.type > Countdown.MINUTES ) {
 
             this.minutes = minutes;
             this.parsed.push( this.getText( this.config.minuteText, minutes ) );
@@ -99,15 +99,15 @@ class DateConverter {
 
     processHours() {
 
-        if ( this.type < DateConverter.HOURS )
+        if ( this.type < Countdown.HOURS )
             return;
 
         let hours = Math.floor( Math.abs( this.milliseconds ) / 3600000 );
 
-        if ( this.type > DateConverter.HOURS )
+        if ( this.type > Countdown.HOURS )
             hours = hours % 24 % this.config.hoursADay;
 
-        if ( hours !== 0 || !this.config.omitZero && this.type > DateConverter.HOURS ) {
+        if ( hours !== 0 || !this.config.omitZero && this.type > Countdown.HOURS ) {
 
             this.hours = hours;
             this.parsed.push( this.getText( this.config.hourText, hours ) );
@@ -116,15 +116,15 @@ class DateConverter {
 
     processDays() {
 
-        if ( this.type < DateConverter.DAYS )
+        if ( this.type < Countdown.DAYS )
             return;
 
         let days = Math.floor( Math.abs( this.milliseconds ) / this.getMillisecondsDays() );
 
-        if ( this.type > DateConverter.DAYS )
+        if ( this.type > Countdown.DAYS )
             days = days % this.config.daysAWeek;
 
-        if ( days !== 0 || !this.config.omitZero && this.type > DateConverter.DAYS ) {
+        if ( days !== 0 || !this.config.omitZero && this.type > Countdown.DAYS ) {
 
             this.days = days;
             this.parsed.push( this.getText( this.config.dayText, days ) );
@@ -133,12 +133,12 @@ class DateConverter {
 
     processWeeks() {
 
-        if ( this.type < DateConverter.WEEKS )
+        if ( this.type < Countdown.WEEKS )
             return;
 
         let weeks = Math.floor( Math.abs( this.milliseconds ) / this.getMillisecondsWeeks() );
 
-        if ( weeks !== 0 || !this.config.omitZero && this.type > DateConverter.WEEKS ) {
+        if ( weeks !== 0 || !this.config.omitZero && this.type > Countdown.WEEKS ) {
 
             this.weeks = weeks;
             this.parsed.push( this.getText( this.config.weekText, weeks ) );
@@ -162,10 +162,10 @@ class DateConverter {
     }
 }
 
-DateConverter.SECONDS = 0;
-DateConverter.MINUTES = 1;
-DateConverter.HOURS   = 2;
-DateConverter.DAYS    = 3;
-DateConverter.WEEKS   = 4;
+Countdown.SECONDS = 0;
+Countdown.MINUTES = 1;
+Countdown.HOURS   = 2;
+Countdown.DAYS    = 3;
+Countdown.WEEKS   = 4;
 
-Object.freeze( DateConverter );
+Object.freeze( Countdown );
